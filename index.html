@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guardia di Finanza — Portale Istituzionale</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gdf-navy: #0f2540; --gdf-blue: #1a3a5c; --gdf-gold: #d4a017; --gdf-gold-dark: #b08010;
+  --bg: #f4f6f9; --surface: #ffffff; --border: #e2e6ea; --text: #1a1a2e; --text-muted: #6b7280;
+  --success: #16a34a; --success-bg: #f0fdf4; --success-border: #bbf7d0;
+  --danger: #dc2626; --danger-bg: #fef2f2; --danger-border: #fecaca;
+  --radius: 8px; --radius-lg: 12px;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+
+/* HEADER */
+.site-header { background: var(--gdf-navy); }
+.topbar { background: #07182e; padding: 6px 2rem; display: flex; align-items: center; gap: 8px; font-size: 11px; color: #6b8fa8; }
+.main-nav { padding: 14px 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.logo { display: flex; align-items: center; gap: 14px; }
+.logo-badge { width: 48px; height: 48px; background: var(--gdf-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: var(--gdf-navy); }
+.logo-text h1 { font-size: 15px; font-weight: 600; color: #fff; line-height: 1.2; }
+.logo-text p { font-size: 11px; color: #7a9ab8; margin-top: 2px; }
+.nav-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav-tab { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: #c8d8e8; padding: 7px 14px; border-radius: var(--radius); font-size: 13px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.nav-tab:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.nav-tab.active { background: var(--gdf-gold); border-color: var(--gdf-gold); color: var(--gdf-navy); font-weight: 600; }
+
+/* PAGES */
+.page { display: none; }
+.page.active { display: block; }
+
+/* HERO */
+.hero { background: var(--gdf-blue); color: #fff; padding: 4rem 2rem; text-align: center; border-bottom: 3px solid var(--gdf-gold); }
+.hero h2 { font-size: 30px; font-weight: 700; margin-bottom: 0.75rem; }
+.hero p { font-size: 15px; color: #8ab0cc; max-width: 520px; margin: 0 auto 2rem; line-height: 1.7; }
+.hero-cta { background: var(--gdf-gold); color: var(--gdf-navy); border: none; padding: 13px 30px; border-radius: var(--radius); font-size: 14px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.hero-cta:hover { background: var(--gdf-gold-dark); }
+
+/* BODY */
+.page-body { padding: 2.5rem 2rem; max-width: 1040px; margin: 0 auto; }
+.page-body-narrow { padding: 2rem; max-width: 700px; margin: 0 auto; }
+.sec-title { font-size: 17px; font-weight: 700; color: var(--text); margin: 0 0 1.25rem; padding-bottom: 10px; border-bottom: 2px solid var(--gdf-gold); display: flex; align-items: center; gap: 8px; }
+.sec-title i { font-size: 20px; color: var(--gdf-blue); }
+
+/* CARDS */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 2.5rem; }
+.info-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; transition: box-shadow 0.15s; }
+.info-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+.info-card i { font-size: 26px; color: var(--gdf-blue); margin-bottom: 12px; display: block; }
+.info-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.info-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+/* GRADI */
+.gradi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-bottom: 2.5rem; }
+.grado-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; display: flex; align-items: center; gap: 12px; }
+.grado-num { width: 28px; height: 28px; background: var(--gdf-navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gdf-gold); font-size: 11px; font-weight: 700; flex-shrink: 0; overflow: hidden; }
+.grado-num img { width: 12px; height: 25px; object-fit: contain; }
+.grado-card h4 { font-size: 13px; font-weight: 600; }
+.grado-card p { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+/* REQUISITI */
+.requisiti-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 2.5rem; }
+.requisiti-list li { display: flex; align-items: flex-start; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; font-size: 13px; }
+.requisiti-list li i { color: var(--success); font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+/* REPARTI PAGE */
+.reparti-hero { background: linear-gradient(135deg, #0f2540 0%, #1a3a5c 100%); color: #fff; padding: 3rem 2rem; border-bottom: 3px solid var(--gdf-gold); }
+.reparti-hero h2 { font-size: 26px; font-weight: 700; margin-bottom: 0.5rem; }
+.reparti-hero p { font-size: 14px; color: #8ab0cc; max-width: 600px; line-height: 1.7; }
+
+.reparto-section { margin-bottom: 3rem; }
+.reparto-section-title { font-size: 13px; font-weight: 700; color: var(--gdf-gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; padding: 6px 12px; background: var(--gdf-navy); border-radius: var(--radius); display: inline-block; }
+
+.reparto-card-full { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 16px; display: grid; grid-template-columns: 260px 1fr; transition: box-shadow 0.15s; }
+.reparto-card-full:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); }
+.reparto-img-box { background: linear-gradient(135deg, #0f2540 0%, #1a3a5c 100%); display: flex; align-items: center; justify-content: center; min-height: 200px; position: relative; overflow: hidden; }
+.reparto-img-box img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.reparto-img-box i { font-size: 56px; color: var(--gdf-gold); opacity: 0.6; position: relative; z-index: 1; }
+.reparto-img-placeholder-label { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 10px; color: rgba(255,255,255,0.4); z-index: 2; }
+.reparto-info { padding: 1.5rem; }
+.reparto-tag { display: inline-block; background: var(--gdf-navy); color: var(--gdf-gold); font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
+.reparto-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.reparto-info p { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px; }
+.reparto-info ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.reparto-info ul li { font-size: 12px; color: var(--text-muted); display: flex; align-items: flex-start; gap: 6px; }
+.reparto-info ul li i { color: var(--gdf-gold); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+@media (max-width: 640px) {
+  .reparto-card-full { grid-template-columns: 1fr; }
+  .reparto-img-box { min-height: 160px; }
+}
+
+/* FORM */
+.form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.75rem; }
+.form-row { margin-bottom: 1.1rem; }
+.form-row label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+.form-row input, .form-row select, .form-row textarea { width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 13px; color: var(--text); background: #fff; outline: none; font-family: inherit; }
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--gdf-blue); box-shadow: 0 0 0 3px rgba(26,58,92,0.08); }
+.form-row textarea { height: 100px; resize: vertical; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.radio-group { display: flex; gap: 10px; }
+.radio-option { flex: 1; }
+.radio-option input[type=radio] { display: none; }
+.radio-option label { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-muted); transition: all 0.15s; text-transform: none; letter-spacing: 0; }
+.radio-option input[type=radio]:checked + label { border-color: var(--gdf-blue); background: #eff6ff; color: var(--gdf-blue); }
+.btn-primary { background: var(--gdf-navy); color: #fff; border: none; padding: 11px 24px; border-radius: var(--radius); font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; transition: background 0.15s; }
+.btn-primary:hover { background: var(--gdf-blue); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.alert { padding: 12px 15px; border-radius: var(--radius); font-size: 13px; display: none; align-items: center; gap: 9px; margin-top: 1rem; }
+.alert.show { display: flex; }
+.alert-success { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+.alert-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
+.form-intro { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; padding: 14px; background: #f8fafc; border-radius: var(--radius); border-left: 3px solid var(--gdf-gold); }
+
+footer { background: var(--gdf-navy); color: #6b8fa8; text-align: center; padding: 1.5rem; font-size: 12px; margin-top: 3rem; }
+footer span { color: var(--gdf-gold); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="topbar"><i class="ti ti-shield-check"></i> Portale Istituzionale — Guardia di Finanza &nbsp;|&nbsp; Il presente sito ha finalità esclusivamente videoludiche e di simulazione. Non sussiste alcun rapporto di affiliazione, autorizzazione o riconoscimento da parte della Guardia di Finanza o di altre istituzioni pubbliche. &nbsp;|&nbsp; Server Roleplay GTA V</div>
+  <nav class="main-nav">
+    <div class="logo">
+      <div class="logo-badge">GdF</div>
+      <div class="logo-text"><h1>Guardia di Finanza</h1><p>Corpo della Polizia Economico-Finanziaria</p></div>
+    </div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="goPage('home',this)"><i class="ti ti-home"></i> Home</button>
+      <button class="nav-tab" onclick="goPage('reparti',this)"><i class="ti ti-buildings"></i> Reparti</button>
+      <button class="nav-tab" onclick="goPage('iscrizione',this)"><i class="ti ti-clipboard-list"></i> Reclutamento</button>
+    </div>
+  </nav>
+</header>
+
+<!-- ===== HOME ===== -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <h2>Servi la Patria con onore</h2>
+    <p>La Guardia di Finanza tutela l'economia e le finanze pubbliche. Contrasta l'evasione fiscale, il riciclaggio e la criminalità economica sul territorio.</p>
+    <button class="hero-cta" onclick="goPage('iscrizione', document.querySelectorAll('.nav-tab')[2])"><i class="ti ti-clipboard-list"></i> Partecipa al corso di reclutamento</button>
+  </div>
+  <div class="page-body">
+    <div class="sec-title"><i class="ti ti-info-circle"></i> Chi siamo</div>
+    <div class="card-grid">
+      <div class="info-card"><i class="ti ti-shield-lock"></i><h3>La missione</h3><p>Corpo di polizia a competenza generale in materia economica e finanziaria al servizio dello Stato e della comunità.</p></div>
+      <div class="info-card"><i class="ti ti-search"></i><h3>Indagini fiscali</h3><p>Verifiche fiscali, sequestri e indagini su evasione, riciclaggio e criminalità economica organizzata.</p></div>
+      <div class="info-card"><i class="ti ti-building-bank"></i><h3>Vigilanza aziendale</h3><p>Monitoraggio e controllo delle attività economiche delle imprese presenti sul territorio.</p></div>
+      <div class="info-card"><i class="ti ti-gavel"></i><h3>Contrasto illeciti</h3><p>Attività investigativa contro frodi, corruzione, contrabbando e ogni forma di illecito finanziario.</p></div>
+    </div>
+
+    <div class="sec-title"><i class="ti ti-award"></i> Gradi del Corpo</div>
+    <div class="gradi-grid">
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Finanziere.png" width="12" height="25"></div><div><h4>Allievo Finanziere</h4><p>Allievi</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Finanziere.png" width="12" height="25"></div><div><h4>Finanziere</h4><p>Appuntati e Finanzieri</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Appuntato.png" width="12" height="25"></div><div><h4>Appuntato</h4><p>Appuntati e Finanzieri</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Appuntato_Scelto.png" width="12" height="25"></div><div><h4>Appuntato Scelto</h4><p>Appuntati e Finanzieri</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/ViceBrigadiere.png" width="12" height="25"></div><div><h4>Vice Brigadiere</h4><p>Sovrintendenti</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Brigadiere.png" width="12" height="25"></div><div><h4>Brigadiere</h4><p>Sovrintendenti</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Brigadiere_Capo.png" width="12" height="25"></div><div><h4>Brigadiere Capo</h4><p>Sovrintendenti</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Maresciallo.png" width="12" height="25"></div><div><h4>Maresciallo</h4><p>Sottufficiali</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Maresciallo_Ordinario.png" width="12" height="25"></div><div><h4>Maresciallo Ordinario</h4><p>Sottufficiali</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Maresciallo_Capo.png" width="12" height="25"></div><div><h4>Maresciallo Capo</h4><p>Sottufficiali</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Tenente.png" width="12" height="25"></div><div><h4>Tenente</h4><p>Ufficiali inferiori</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Capitano.png" width="12" height="25"></div><div><h4>Capitano</h4><p>Ufficiali inferiori</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Colonnello.png" width="12" height="25"></div><div><h4>Colonnello</h4><p>Ufficiali superiori</p></div></div>
+      <div class="grado-card"><div class="grado-num"><img src="img/gradi/Generale_di_Brigata.png" width="12" height="25"></div><div><h4>Generale di Brigata</h4><p>Ufficiali generali</p></div></div>
+    </div>
+
+    <div class="sec-title"><i class="ti ti-checklist"></i> Requisiti di accesso</div>
+    <ul class="requisiti-list">
+      <li><i class="ti ti-circle-check"></i> Età minima di 18 anni</li>
+      <li><i class="ti ti-circle-check"></i> Cittadinanza Italiana</li>
+      <li><i class="ti ti-circle-check"></i> Disponibilità minima di almeno 10 ore settimanali</li>
+      <li><i class="ti ti-circle-check"></i> Microfono funzionante e capacità di comunicazione chiara</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== REPARTI ===== -->
+<div id="page-reparti" class="page">
+  <div class="reparti-hero">
+    <h2><i class="ti ti-buildings" style="color:var(--gdf-gold);margin-right:10px;"></i>Reparti del Corpo</h2>
+    <p>La Guardia di Finanza è articolata in reparti territoriali, speciali e aeronavali. Ogni reparto ha competenze specifiche e opera in sinergia per garantire la tutela dell'economia e delle finanze dello Stato.</p>
+  </div>
+  <div class="page-body">
+
+    <!-- TERRITORIALI -->
+    <div class="reparto-section">
+      <div class="reparto-section-title"><i class="ti ti-map-pin"></i> Reparti Territoriali</div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/npef.jpg" alt="NPEF" onerror="this.style.display='none'">
+          <i class="ti ti-search"></i>
+          <span class="reparto-img-placeholder-label">npef.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Investigativo</span>
+          <h3>Nucleo di Polizia Economico-Finanziaria (NPEF)</h3>
+          <p>È il principale reparto investigativo della GdF a livello provinciale. Coordina le indagini più complesse in materia economica e finanziaria, operando in stretto contatto con la magistratura.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Contrasto all'evasione e all'elusione fiscale</li>
+            <li><i class="ti ti-point"></i> Indagini su riciclaggio e finanziamento al terrorismo</li>
+            <li><i class="ti ti-point"></i> Repressione della criminalità economica organizzata</li>
+            <li><i class="ti ti-point"></i> Collaborazione con autorità giudiziarie nazionali e internazionali</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/tenenza.jpg" alt="Tenenza" onerror="this.style.display='none'">
+          <i class="ti ti-car"></i>
+          <span class="reparto-img-placeholder-label">tenenza.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Territoriale</span>
+          <h3>Tenenza Territoriale</h3>
+          <p>Unità operativa di base che presidia il territorio con pattuglie, controlli e interventi di polizia economico-finanziaria a livello locale, operando nei comuni e nelle zone assegnate.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Pattugliamento del territorio e controlli stradali</li>
+            <li><i class="ti ti-point"></i> Verifiche su esercizi commerciali e attività produttive</li>
+            <li><i class="ti ti-point"></i> Concorso alla pubblica sicurezza con altre forze dell'ordine</li>
+            <li><i class="ti ti-point"></i> Accertamenti tributari su persone fisiche e imprese locali</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/compagnia.jpg" alt="Compagnia" onerror="this.style.display='none'">
+          <i class="ti ti-users"></i>
+          <span class="reparto-img-placeholder-label">compagnia.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Territoriale</span>
+          <h3>Compagnia</h3>
+          <p>Struttura operativa intermedia situata nei capoluoghi di provincia. Coordina le tenenze e le brigate dipendenti, svolgendo compiti di vigilanza e controllo economico-finanziario a livello locale.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Coordinamento delle unità operative minori</li>
+            <li><i class="ti ti-point"></i> Ispezioni fiscali e tributarie su imprese e professionisti</li>
+            <li><i class="ti ti-point"></i> Repressione del contrabbando e del commercio abusivo</li>
+            <li><i class="ti ti-point"></i> Supporto alle indagini del NPEF provinciale</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPECIALI -->
+    <div class="reparto-section">
+      <div class="reparto-section-title"><i class="ti ti-star"></i> Reparti Speciali</div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/gico.jpg" alt="GICO" onerror="this.style.display='none'">
+          <i class="ti ti-eye"></i>
+          <span class="reparto-img-placeholder-label">gico.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Speciale</span>
+          <h3>GICO — Gruppo di Investigazione sulla Criminalità Organizzata</h3>
+          <p>Reparto d'élite dedicato al contrasto della criminalità organizzata sotto il profilo economico-finanziario. Opera su tutto il territorio nazionale in coordinamento con la DIA e la DDA.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Indagini patrimoniali su organizzazioni criminali</li>
+            <li><i class="ti ti-point"></i> Sequestri e confische di beni illeciti</li>
+            <li><i class="ti ti-point"></i> Coordinamento con Direzione Antimafia (DDA)</li>
+            <li><i class="ti ti-point"></i> Monitoraggio dei flussi finanziari illeciti</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/frodi_telematiche.jpg" alt="Frodi Telematiche" onerror="this.style.display='none'">
+          <i class="ti ti-device-laptop"></i>
+          <span class="reparto-img-placeholder-label">frodi_telematiche.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Cyber</span>
+          <h3>Nucleo Speciale Tutela Privacy e Frodi Telematiche</h3>
+          <p>Reparto altamente specializzato nella lotta ai crimini informatici a carattere economico-finanziario. Monitora la rete alla ricerca di illeciti e collabora con l'Autorità Garante per la Privacy.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Indagini su frodi online e phishing finanziario</li>
+            <li><i class="ti ti-point"></i> Contrasto al riciclaggio digitale e alle criptovalute illecite</li>
+            <li><i class="ti ti-point"></i> Monitoraggio del dark web per reati economici</li>
+            <li><i class="ti ti-point"></i> Tutela della privacy e dei dati personali</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/tutela_mercati.jpg" alt="Tutela Mercati" onerror="this.style.display='none'">
+          <i class="ti ti-building-store"></i>
+          <span class="reparto-img-placeholder-label">tutela_mercati.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Commerciale</span>
+          <h3>Nucleo Speciale Beni e Servizi — Tutela Mercati</h3>
+          <p>Si occupa della tutela di marchi, brevetti e proprietà intellettuali, contrasta la contraffazione e la pirateria audiovisiva, e vigila sulla sicurezza e conformità dei prodotti in commercio.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Contrasto alla contraffazione e ai marchi falsi</li>
+            <li><i class="ti ti-point"></i> Tutela della proprietà intellettuale e dei brevetti</li>
+            <li><i class="ti ti-point"></i> Repressione del commercio abusivo e degli ambulanti illegali</li>
+            <li><i class="ti ti-point"></i> Controllo sulla conformità e sicurezza dei prodotti</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/antiriciclaggio.jpg" alt="Antiriciclaggio" onerror="this.style.display='none'">
+          <i class="ti ti-report-money"></i>
+          <span class="reparto-img-placeholder-label">antiriciclaggio.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Finanziario</span>
+          <h3>Nucleo Speciale di Polizia Valutaria</h3>
+          <p>Opera nei settori del riciclaggio, dei movimenti transfrontalieri di capitali, dell'usura e del finanziamento al terrorismo. Collabora con Banca d'Italia, CONSOB e le Financial Intelligence Units estere.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Indagini su riciclaggio e reimpiego di capitali illeciti</li>
+            <li><i class="ti ti-point"></i> Controllo dei movimenti transfrontalieri di valuta</li>
+            <li><i class="ti ti-point"></i> Contrasto all'usura e all'abusivismo finanziario</li>
+            <li><i class="ti ti-point"></i> Collaborazione con CONSOB e Banca d'Italia</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/frodi_fiscali.jpg" alt="Frodi Fiscali" onerror="this.style.display='none'">
+          <i class="ti ti-file-invoice"></i>
+          <span class="reparto-img-placeholder-label">frodi_fiscali.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Tributario</span>
+          <h3>Nucleo Speciale Tutela Entrate e Repressione Frodi Fiscali</h3>
+          <p>Competente in materia di entrate del bilancio nazionale e sulle frodi doganali. Conduce attività ispettive sui fenomeni di evasione ed elusione fiscale più complessi, anche di rilievo internazionale.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Contrasto all'evasione fiscale internazionale</li>
+            <li><i class="ti ti-point"></i> Indagini su frodi doganali e IVA</li>
+            <li><i class="ti ti-point"></i> Verifiche su grandi contribuenti e multinazionali</li>
+            <li><i class="ti ti-point"></i> Supporto ispettivo ai reparti territoriali</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- AERONAVALE -->
+    <div class="reparto-section">
+      <div class="reparto-section-title"><i class="ti ti-ship"></i> Componente Aeronavale</div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/aeronavale.jpg" alt="Aeronavale" onerror="this.style.display='none'">
+          <i class="ti ti-ship"></i>
+          <span class="reparto-img-placeholder-label">aeronavale.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Aeronavale</span>
+          <h3>Reparto Operativo Aeronavale</h3>
+          <p>Garantisce la sorveglianza delle acque territoriali e il pattugliamento costiero. Contrasta il contrabbando via mare, il traffico di migranti e ogni forma di criminalità marittima a carattere finanziario.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Pattugliamento costiero e sorveglianza marittima</li>
+            <li><i class="ti ti-point"></i> Contrasto al contrabbando via mare</li>
+            <li><i class="ti ti-point"></i> Ispezioni doganali in porto e alle imbarcazioni</li>
+            <li><i class="ti ti-point"></i> Concorso alle operazioni di soccorso in mare</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/subacquei.jpg" alt="Subacquei" onerror="this.style.display='none'">
+          <i class="ti ti-swimming"></i>
+          <span class="reparto-img-placeholder-label">subacquei.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Subacqueo</span>
+          <h3>Componente Subacquea</h3>
+          <p>Unità specializzata nelle operazioni subacquee. Svolge compiti di ricerca, recupero e soccorso in mare, nei fiumi e nelle acque interne, a supporto delle unità navali del Corpo.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Ricerca e recupero di reperti subacquei</li>
+            <li><i class="ti ti-point"></i> Soccorso della vita umana in mare e nelle acque interne</li>
+            <li><i class="ti ti-point"></i> Supporto tecnico alle unità navali</li>
+            <li><i class="ti ti-point"></i> Ispezioni subacquee di natanti sospetti</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CINOFILI -->
+    <div class="reparto-section">
+      <div class="reparto-section-title"><i class="ti ti-paw"></i> Reparti Speciali di Supporto</div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/cinofili.jpg" alt="Cinofili" onerror="this.style.display='none'">
+          <i class="ti ti-paw"></i>
+          <span class="reparto-img-placeholder-label">cinofili.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Cinofilo</span>
+          <h3>Servizio Cinofili</h3>
+          <p>Unità operative con cani addestrati al fiuto di stupefacenti, valuta e esplosivi. Supportano le altre componenti del Corpo in operazioni di controllo doganale, perquisizioni e sequestri.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Ricerca di stupefacenti, valuta e esplosivi</li>
+            <li><i class="ti ti-point"></i> Supporto ai controlli doganali in porti e aeroporti</li>
+            <li><i class="ti ti-point"></i> Addestramento e allevamento dei cani da lavoro</li>
+            <li><i class="ti ti-point"></i> Collaborazione con altri reparti in operazioni congiunte</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reparto-card-full">
+        <div class="reparto-img-box">
+          <img src="img/reparti/sagf.jpg" alt="SAGF" onerror="this.style.display='none'">
+          <i class="ti ti-mountain"></i>
+          <span class="reparto-img-placeholder-label">sagf.jpg</span>
+        </div>
+        <div class="reparto-info">
+          <span class="reparto-tag">Alpino</span>
+          <h3>SAGF — Soccorso Alpino Guardia di Finanza</h3>
+          <p>Reparto specializzato nelle operazioni di soccorso in ambiente montano. Opera sulle principali vette e aree alpine d'Italia per garantire sicurezza e contrasto ai reati nelle zone di confine.</p>
+          <ul>
+            <li><i class="ti ti-point"></i> Soccorso alpino e recupero in quota</li>
+            <li><i class="ti ti-point"></i> Controllo delle zone di confine in ambiente montano</li>
+            <li><i class="ti ti-point"></i> Contrasto al contrabbando nei valichi alpini</li>
+            <li><i class="ti ti-point"></i> Pattugliamento con sci e mezzi alpini specializzati</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== ISCRIZIONE ===== -->
+<div id="page-iscrizione" class="page">
+  <div class="page-body-narrow">
+    <div class="sec-title" style="margin-top:1rem;"><i class="ti ti-clipboard-list"></i> Modulo di candidatura</div>
+    <div class="form-intro"><strong>Come funziona:</strong> compila il modulo con i dati del tuo personaggio. La candidatura arriverà direttamente ai nostri ufficiali su Discord e riceverai una risposta entro <strong>48 ore</strong>.</div>
+    <div class="form-card">
+      <div class="grid-2">
+        <div class="form-row"><label>Nome e Cognome *</label><input type="text" id="r-nome" placeholder="Es. Marco Russo"></div>
+        <div class="form-row"><label>Età anagrafica *</label><input type="number" id="r-eta" placeholder="Es. 26" min="18" max="99"></div>
+      </div>
+      <div class="form-row"><label>Nome Applicativo (Discord) *</label><input type="text" id="r-discord" placeholder="Es. marcorusso o marcorusso#1234"></div>
+      <div class="form-row"><label>Esperienze lavorative precedenti *</label><textarea id="r-exp" placeholder="Descrivi brevemente i lavori o ruoli svolti in precedenza nel server. Scrivi 'Nessuna' se è la prima esperienza."></textarea></div>
+      <div class="form-row"><label>Perché vorresti entrare nella Guardia di Finanza *</label><textarea id="r-motivo" placeholder="Spiega perché vuoi entrare nella Guardia di Finanza e cosa puoi portare al Corpo..."></textarea></div>
+      <div class="grid-2">
+        <div class="form-row"><label>Disponibilità settimanale</label><select id="r-disp"><option>Meno di 5 ore</option><option>5–10 ore</option><option selected>10–20 ore</option><option>Più di 20 ore</option></select></div>
+        <div class="form-row"><label>Fascia oraria preferita</label><select id="r-fascia"><option>Mattina (8:00–13:00)</option><option>Pomeriggio (13:00–18:00)</option><option selected>Sera (18:00–23:00)</option><option>Notte (23:00–3:00)</option><option>Variabile</option></select></div>
+      </div>
+      <div class="form-row">
+        <label>Porto d'armi *</label>
+        <div class="radio-group">
+          <div class="radio-option"><input type="radio" name="porto" id="porto-si" value="✅ Sì"><label for="porto-si"><i class="ti ti-check"></i> Sì, sono in possesso del porto d'armi</label></div>
+          <div class="radio-option"><input type="radio" name="porto" id="porto-no" value="❌ No" checked><label for="porto-no"><i class="ti ti-x"></i> No, non sono in possesso</label></div>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn-iscr" onclick="submitIscrizione()"><i class="ti ti-send"></i> Invia candidatura</button>
+      <div class="alert alert-success" id="iscr-ok"><i class="ti ti-circle-check"></i> Candidatura inviata! Gli ufficiali ti contatteranno su Discord entro 48 ore.</div>
+      <div class="alert alert-danger" id="iscr-err"><i class="ti ti-alert-circle"></i> Errore nell'invio. Controlla la connessione e riprova.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>Guardia di Finanza</span> — Portale Istituzionale &nbsp;·&nbsp; Il presente sito ha finalità esclusivamente videoludiche e di simulazione. Non sussiste alcun rapporto di affiliazione, autorizzazione o riconoscimento da parte della Guardia di Finanza o di altre istituzioni pubbliche. &nbsp;·&nbsp; Tutti i diritti riservati
+</footer>
+
+<script>
+function goPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+async function submitIscrizione() {
+  const nome   = document.getElementById('r-nome').value.trim();
+  const eta    = document.getElementById('r-eta').value.trim();
+  const discord = document.getElementById('r-discord').value.trim();
+  const exp    = document.getElementById('r-exp').value.trim();
+  const motivo = document.getElementById('r-motivo').value.trim();
+  const disp   = document.getElementById('r-disp').value;
+  const fascia = document.getElementById('r-fascia').value;
+  const porto  = document.querySelector('input[name="porto"]:checked')?.value || '❌ No';
+
+  if (!nome || !discord || !motivo) { alert('Compila i campi obbligatori: nome, Discord e motivazione.'); return; }
+
+  const btn = document.getElementById('btn-iscr');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2"></i> Invio in corso...';
+
+  try {
+    const res = await fetch('/.netlify/functions/candidatura', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, eta, discord, exp, motivo, disp, fascia, porto })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    document.getElementById('iscr-ok').classList.add('show');
+    document.getElementById('iscr-err').classList.remove('show');
+    ['r-nome','r-eta','r-discord','r-exp','r-motivo'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('porto-no').checked = true;
+  } catch(e) {
+    document.getElementById('iscr-err').classList.add('show');
+    document.getElementById('iscr-ok').classList.remove('show');
+    console.error(e);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-send"></i> Invia candidatura';
+}
+</script>
+</body>
+</html>
