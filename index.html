@@ -526,6 +526,8 @@ async function submitIscrizione() {
     document.getElementById('iscr-ok').classList.add('show');
     document.getElementById('iscr-err').classList.remove('show');
     ['r-nome','r-eta','r-discord','r-exp','r-motivo'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('sana-no').checked = true;
+    document.getElementById('usoem-no').checked = true;
     document.getElementById('porto-no').checked = true;
   } catch(e) {
     document.getElementById('iscr-err').classList.add('show');
