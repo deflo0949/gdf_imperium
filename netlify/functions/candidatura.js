@@ -30,6 +30,8 @@ exports.handler = async (event) => {
         { name: '👤 Personaggio',          value: nome,             inline: true  },
         { name: '🎂 Età (RP)',              value: eta || '—',       inline: true  },
         { name: '💬 Discord',               value: discord,          inline: true  },
+        { name: '🔫 Certificato Sana e Robusta Costituzione',         value: sana,            inline: true  },
+        { name: '🔫 Certificato di Uso e Maneggio',         value: usoem,            inline: true  },
         { name: '🔫 Porto d\'armi',         value: porto,            inline: true  },
         { name: '📅 Disponibilità',         value: disp,             inline: true  },
         { name: '🕐 Fascia oraria',          value: fascia,           inline: true  },
