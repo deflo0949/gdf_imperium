@@ -15,7 +15,7 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Dati non validi' }) };
   }
 
-  const { nome, eta, discord, exp, motivo, disp, fascia, porto } = data;
+  const { nome, eta, discord, exp, motivo, disp, fascia, porto, usoem, sana } = data;
 
   if (!nome || !discord || !motivo) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Campi obbligatori mancanti' }) };
