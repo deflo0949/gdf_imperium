@@ -460,15 +460,15 @@ footer span { color: var(--gdf-gold); }
       <div class="form-row">
         <label>Certificato di Sana e Robusta Costituzione *</label>
         <div class="radio-group">
-          <div class="radio-option"><input type="radio" name="porto" id="porto-si" value="✅ Sì"><label for="porto-si"><i class="ti ti-check"></i> Sì, sono in possesso del certificato di Sana e Robusta Costituzione</label></div>
-          <div class="radio-option"><input type="radio" name="porto" id="porto-no" value="❌ No" checked><label for="porto-no"><i class="ti ti-x"></i> No, non sono in possesso</label></div>
+          <div class="radio-option"><input type="radio" name="sana" id="sana-si" value="✅ Sì"><label for="porto-si"><i class="ti ti-check"></i> Sì, sono in possesso del certificato di Sana e Robusta Costituzione</label></div>
+          <div class="radio-option"><input type="radio" name="sana" id="sana-no" value="❌ No" checked><label for="porto-no"><i class="ti ti-x"></i> No, non sono in possesso</label></div>
         </div>
       </div>
       <div class="form-row">
         <label>Certificato di Uso e Maneggio *</label>
         <div class="radio-group">
-          <div class="radio-option"><input type="radio" name="porto" id="porto-si" value="✅ Sì"><label for="porto-si"><i class="ti ti-check"></i> Sì, sono in possesso del certificato di Uso e Maneggio</label></div>
-          <div class="radio-option"><input type="radio" name="porto" id="porto-no" value="❌ No" checked><label for="porto-no"><i class="ti ti-x"></i> No, non sono in possesso</label></div>
+          <div class="radio-option"><input type="radio" name="usoem" id="usoem-si" value="✅ Sì"><label for="porto-si"><i class="ti ti-check"></i> Sì, sono in possesso del certificato di Uso e Maneggio</label></div>
+          <div class="radio-option"><input type="radio" name="usoem" id="usoem-no" value="❌ No" checked><label for="porto-no"><i class="ti ti-x"></i> No, non sono in possesso</label></div>
         </div>
       </div>
       <div class="form-row">
@@ -507,6 +507,8 @@ async function submitIscrizione() {
   const disp   = document.getElementById('r-disp').value;
   const fascia = document.getElementById('r-fascia').value;
   const porto  = document.querySelector('input[name="porto"]:checked')?.value || '❌ No';
+  const sana  = document.querySelector('input[name="sana"]:checked')?.value || '❌ No';
+  const usoem  = document.querySelector('input[name="usoem"]:checked')?.value || '❌ No';
 
   if (!nome || !discord || !motivo) { alert('Compila i campi obbligatori: nome, Discord e motivazione.'); return; }
 
@@ -518,7 +520,7 @@ async function submitIscrizione() {
     const res = await fetch('/.netlify/functions/candidatura', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, eta, discord, exp, motivo, disp, fascia, porto })
+      body: JSON.stringify({ nome, eta, discord, exp, motivo, disp, fascia, sana, usoem, porto })
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     document.getElementById('iscr-ok').classList.add('show');
