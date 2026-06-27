@@ -27,9 +27,9 @@ exports.handler = async (event) => {
       title: '📋 Nuova Candidatura — Guardia di Finanza',
       color: 0xd4a017,
       fields: [
-        { name: '👤 Personaggio',          value: nome,             inline: true  },
-        { name: '🎂 Età (RP)',              value: eta || '—',       inline: true  },
-        { name: '💬 Discord',               value: discord,          inline: true  },
+        { name: '👤 Nome e Cognome',          value: nome,             inline: true  },
+        { name: '🎂 Età',              value: eta || '—',       inline: true  },
+        { name: '💬 Applicativo',               value: discord,          inline: true  },
         { name: '🔫 Certificato Sana e Robusta Costituzione',         value: sana,            inline: true  },
         { name: '🔫 Certificato di Uso e Maneggio',         value: usoem,            inline: true  },
         { name: '🔫 Porto d\'armi',         value: porto,            inline: true  },
