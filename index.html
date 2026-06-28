@@ -444,7 +444,7 @@ footer span { color: var(--gdf-gold); }
 <div id="page-iscrizione" class="page">
   <div class="page-body-narrow">
     <div class="sec-title" style="margin-top:1rem;"><i class="ti ti-clipboard-list"></i> Modulo di candidatura</div>
-    <div class="form-intro"><strong>Come funziona:</strong> compila il modulo con i dati del tuo personaggio. La candidatura arriverà direttamente ai nostri ufficiali su Discord e riceverai una risposta entro <strong>48 ore</strong>.</div>
+    <div class="form-intro"><strong>Come funziona:</strong> compila il modulo con i tuoi dati personali (RP). La candidatura arriverà direttamente ai nostri ufficiali in applicativo (Discord) e riceverai una risposta entro <strong>48 ore</strong>.<br><br>⚠️ <strong>Importante:</strong> per essere contattato dagli ufficiali è necessario essere presenti nel nostro server Discord. Trovi il link di invito nel messaggio di conferma dopo l'invio della candidatura.</div>
     <div class="form-card">
       <div class="grid-2">
         <div class="form-row"><label>Nome e Cognome *</label><input type="text" id="r-nome" placeholder="Es. Marco Russo"></div>
@@ -479,7 +479,7 @@ footer span { color: var(--gdf-gold); }
         </div>
       </div>
       <button class="btn-primary" id="btn-iscr" onclick="submitIscrizione()"><i class="ti ti-send"></i> Invia candidatura</button>
-      <div class="alert alert-success" id="iscr-ok"><i class="ti ti-circle-check"></i> Candidatura inviata! Gli ufficiali ti contatteranno in Applicativo (Discord) entro 48 ore.</div>
+      <div class="alert alert-success" id="iscr-ok" style="flex-direction:column;align-items:flex-start;gap:10px;"><div style="display:flex;align-items:center;gap:9px;"><i class="ti ti-circle-check"></i> <strong>Candidatura inviata!</strong> Gli ufficiali ti contatteranno su Discord entro 48 ore.</div><div style="font-size:14px;">⚠️ <strong>Importante:</strong> per essere contattato devi entrare nel nostro server Discord:&nbsp;<a href="https://discord.gg/DaExkjXx6e" target="_blank" style="color:#15803d;font-weight:700;text-decoration:underline;display:inline-flex;align-items:center;gap:4px;"><i class="ti ti-brand-discord"></i> Entra nel server</a></div></div>
       <div class="alert alert-danger" id="iscr-err"><i class="ti ti-alert-circle"></i> Errore nell'invio. Controlla la connessione e riprova.</div>
     </div>
   </div>
