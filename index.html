@@ -471,13 +471,6 @@ footer span { color: var(--gdf-gold); }
           <div class="radio-option"><input type="radio" name="usoem" id="usoem-no" value="❌ No" checked><label for="usoem-no"><i class="ti ti-x"></i> No, non sono in possesso</label></div>
         </div>
       </div>
-      <div class="form-row">
-        <label>Porto d'armi *</label>
-        <div class="radio-group">
-          <div class="radio-option"><input type="radio" name="porto" id="porto-si" value="✅ Sì"><label for="porto-si"><i class="ti ti-check"></i> Sì, sono in possesso del porto d'armi</label></div>
-          <div class="radio-option"><input type="radio" name="porto" id="porto-no" value="❌ No" checked><label for="porto-no"><i class="ti ti-x"></i> No, non sono in possesso</label></div>
-        </div>
-      </div>
       <button class="btn-primary" id="btn-iscr" onclick="submitIscrizione()"><i class="ti ti-send"></i> Invia candidatura</button>
       <div class="alert alert-success" id="iscr-ok" style="flex-direction:column;align-items:flex-start;gap:10px;"><div style="display:flex;align-items:center;gap:9px;"><i class="ti ti-circle-check"></i> <strong>Candidatura inviata!</strong> Gli ufficiali ti contatteranno su Discord entro 48 ore.</div><div style="font-size:14px;"></a></div></div>
       <div class="alert alert-danger" id="iscr-err"><i class="ti ti-alert-circle"></i> Errore nell'invio. Controlla la connessione e riprova.</div>
@@ -508,7 +501,6 @@ async function submitIscrizione() {
   const motivo = document.getElementById('r-motivo').value.trim();
   const disp   = document.getElementById('r-disp').value;
   const fascia = document.getElementById('r-fascia').value;
-  const porto  = document.querySelector('input[name="porto"]:checked')?.value || '❌ No';
   const sana  = document.querySelector('input[name="sana"]:checked')?.value || '❌ No';
   const usoem  = document.querySelector('input[name="usoem"]:checked')?.value || '❌ No';
 
@@ -529,7 +521,6 @@ async function submitIscrizione() {
         { name: '💬 Applicativo',               value: discord,          inline: true  },
         { name: '🔫 Certificato Sana e Robusta Costituzione',         value: sana,            inline: true  },
         { name: '🔫 Certificato di Uso e Maneggio',         value: usoem,            inline: true  },
-        { name: '🔫 Porto d\'armi',         value: porto,            inline: true  },
         { name: '📅 Disponibilità',         value: disp,             inline: true  },
         { name: '🕐 Fascia oraria',          value: fascia,           inline: true  },
         { name: '🏛️ Esperienze precedenti', value: exp || 'Nessuna', inline: false },
