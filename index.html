@@ -490,6 +490,8 @@ footer span { color: var(--gdf-gold); }
 </footer>
 
 <script>
+const WEBHOOK = 'https://discord.com/api/webhooks/1519802930050371644/NqGHKrGl0Fvhwyr8bfZEO61oM65PDyWFIP5FcF5nx2qeNc-kNLsrNwg32XZHTT5Wqr1p';
+
 function goPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -510,24 +512,47 @@ async function submitIscrizione() {
   const sana  = document.querySelector('input[name="sana"]:checked')?.value || '❌ No';
   const usoem  = document.querySelector('input[name="usoem"]:checked')?.value || '❌ No';
 
-  if (!nome || !discord || !motivo) { alert('Compila i campi obbligatori: nome, Discord e motivazione.'); return; }
+  if (!nome || !discord || !motivo || !eta || !exp) { alert('Compila i campi obbligatori: Nome, Età, Discord, Esperienza e Motivazione.'); return; }
 
   const btn = document.getElementById('btn-iscr');
   btn.disabled = true;
   btn.innerHTML = '<i class="ti ti-loader-2"></i> Invio in corso...';
 
+  const payload = {
+    username: 'Guardia di Finanza',
+    embeds: [{
+      title: '📋 Nuova Candidatura — Guardia di Finanza',
+      color: 0xd4a017,
+      fields: [
+        { name: '👤 Nome e Cognome',          value: nome,             inline: true  },
+        { name: '🎂 Età',              value: eta || '—',       inline: true  },
+        { name: '💬 Applicativo',               value: discord,          inline: true  },
+        { name: '🔫 Certificato Sana e Robusta Costituzione',         value: sana,            inline: true  },
+        { name: '🔫 Certificato di Uso e Maneggio',         value: usoem,            inline: true  },
+        { name: '🔫 Porto d\'armi',         value: porto,            inline: true  },
+        { name: '📅 Disponibilità',         value: disp,             inline: true  },
+        { name: '🕐 Fascia oraria',          value: fascia,           inline: true  },
+        { name: '🏛️ Esperienze precedenti', value: exp || 'Nessuna', inline: false },
+        { name: '✍️ Motivazione',           value: motivo,           inline: false }
+      ],
+      footer: { text: 'Portale GdF — ' + new Date().toLocaleString('it-IT') }
+    }]
+  };
+
   try {
-    const res = await fetch('/.netlify/functions/candidatura', {
+    const res = await fetch(WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, eta, discord, exp, motivo, disp, fascia, sana, usoem, porto })
+      body: JSON.stringify(payload)
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     document.getElementById('iscr-ok').classList.add('show');
     document.getElementById('iscr-err').classList.remove('show');
-    ['r-nome','r-eta','r-discord','r-exp','r-motivo'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('sana-no').checked = true;
-    document.getElementById('usoem-no').checked = true;
+    document.getElementById('r-nome').value = '';
+    document.getElementById('r-eta').value = '';
+    document.getElementById('r-discord').value = '';
+    document.getElementById('r-exp').value = '';
+    document.getElementById('r-motivo').value = '';
     document.getElementById('porto-no').checked = true;
   } catch(e) {
     document.getElementById('iscr-err').classList.add('show');
